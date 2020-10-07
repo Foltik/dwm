@@ -1,6 +1,8 @@
 # Personal Changes
 - Customize keybindings
 - Remove ISSUES cruft from dwm.1
+- Add global `selmon` for spawn to use
 
 # Patches
-
+- activetagindicatorbar
+- actualfullscreen
