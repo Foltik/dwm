@@ -67,6 +67,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_backslash, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_q,         killclient,     {0} },
 	{ MODKEY,                       XK_semicolon, togglefloating, {0} },
+	{ MODKEY,                       XK_f,         togglefullscr,  {0} },
 	/*{ MODKEY,                       XK_i,         incnmaster,     {.i = -1 } },*/
 	/*{ MODKEY,                       XK_o,         incnmaster,     {.i = +1 } },*/
 	{ MODKEY,                       XK_minus,     setmfact,       {.f = -0.05} },
