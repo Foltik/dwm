@@ -1,2 +1,2 @@
-# DWM
-A personalized version of [DWM](https://dwm.suckless.org/).
+# dwm
+A personalized version of [dwm](https://dwm.suckless.org/).
