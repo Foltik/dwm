@@ -727,6 +727,8 @@ drawbar(Monitor *m)
 	int boxs = drw->fonts->h / 9;
 	int boxw = drw->fonts->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0;
+	unsigned int n = 0, s = 0;
+	char selbuf[10];
 	Client *c;
 
 	/* draw status first so it can be overdrawn by tags later */
@@ -756,6 +758,17 @@ drawbar(Monitor *m)
 	w = blw = TEXTW(m->ltsymbol);
 	drw_setscheme(drw, scheme[SchemeNorm]);
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+
+	for (c = nexttiled(m->clients), n = 0, s = 0; c; c = nexttiled(c->next), n++)
+		if (c == m->stack)
+			s = n;
+	if (n > 1) {
+		if (!s) s = n;
+		snprintf(selbuf, LENGTH(selbuf), "[%d/%d]", s, n);
+		w = blw = TEXTW(selbuf);
+		drw_setscheme(drw, scheme[SchemeNorm]);
+		x = drw_text(drw, x, 0, w, bh, lrpad / 2, selbuf, 0);
+	}
 
 	if ((w = m->ww - tw - x) > bh) {
 		if (m->sel) {
@@ -1132,14 +1145,8 @@ maprequest(XEvent *e)
 void
 monocle(Monitor *m)
 {
-	unsigned int n = 0;
 	Client *c;
 
-	for (c = m->clients; c; c = c->next)
-		if (ISVISIBLE(c))
-			n++;
-	if (n > 0) /* override layout symbol */
-		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
 	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
 		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
 }
